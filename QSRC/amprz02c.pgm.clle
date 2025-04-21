@@ -1,0 +1,21 @@
+      /*%METADATA                                                     */
+      /* %TEXT Run UNIQs                                              */
+      /*%EMETADATA                                                    */
+             PGM
+
+             CPYF       FROMFILE(AMPR933PUN) TOFILE(AMPR933Px) +
+                          MBROPT(*REPLACE)
+
+             CALL       PGM(AMPR001CX)
+             CALL       PGM(AMPR010CX)
+
+             CLRPFM     FILE(AMPR101P)
+             CLRPFM     FILE(AMPR102P)
+
+             CPYF       FROMFILE(AMPR101PSV) TOFILE(AMPR101P) +
+                          FROMMBR(*ALL) MBROPT(*REPLACE)
+             CPYF       FROMFILE(AMPR102PSV) TOFILE(AMPR102P) +
+                          FROMMBR(*ALL) MBROPT(*REPLACE)
+             MONMSG     MSGID(CPF0000)
+
+             ENDPGM

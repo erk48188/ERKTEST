@@ -1,0 +1,79 @@
+      *%METADATA                                                       *
+      * %TEXT Service Program - Prototypes                             *
+      *%EMETADATA                                                      *
+     *====================================================================
+     *====================================================================
+      * Instructions
+      *
+      *  TO COMPILE -
+      *    - Add Subprocedure to source .. rkmcSrvPgm
+      *    - Add Prototypes to source .... rkmcSrvPro
+      *    - Add Entries to source ....... rkmcSrvBnd
+      *    - Compile with CRTSQLRPGI  RPGPPOPT(*LVL2)  DBGVIEW(*SOURCE)
+      *  TO USE -
+      *    - Add to pgm     ctl-opt dftactgrp(*no) actgrp(*new);
+      *                     ctl-opt bnddir('AMPRBNDDIR');
+     *====================================================================
+
+      /If Not Defined( AMPRSrvPgmCopied )
+      /Define          AMPRSrvPgmCopied
+      /Else
+      /Eof
+      /EndIf
+
+     *====================================================================
+      *    S U B P R O C E D U R E S
+     *====================================================================
+      // ------------------------------------------
+      // -- @spWriteEventFile
+      //   pass as @spWriteEventFile(dsUEF: evt: evtMSG: pgmDS);
+      // ------------------------------------------
+        dcl-pr @spWriteEventFile;
+          spUEF    likeds(dsUEF);
+          spEvt    likeds(Evt);
+          spEvtMsg char(70) dim(20);
+          spPgmDS  likeds(pgmDS);
+        end-pr;
+
+
+      // ------------------------------------------
+      // -- @spGetTierCounts
+      //   pass as @spGetTierCounts(errorCode: RecsArray);
+      // ------------------------------------------
+        dcl-pr @spGetTierCounts;
+          spEC     char(4);
+          spAr     like(RecsRead) dim(4);
+        end-pr;
+
+      // ------------------------------------------
+      // -- @spGetTierCountsAnyReason
+      //   pass as @spGetTierCountsAnyReason(errorCode: RecsArray);
+      // ------------------------------------------
+        dcl-pr @spGetTierCountsAnyReason;
+          spAr     like(RecsRead) dim(4);
+        end-pr;
+
+       // ------------------------------------------
+       // -- @spWriteAuditRecord
+       // ------------------------------------------
+          dcl-pr @spWriteAuditRecord;
+             iDSIndex         int(5) value;
+             @warEvtMsg       char(70) value;
+             @warLevel        char(1) value;
+             @warTotal        char(1) value;
+             @warSumFld       zoned(4:0) value;
+             @warWFDSumFld    zoned(4:0) value;
+             @warJob          char(3) value;
+          end-pr;
+
+      // ------------------------------------------
+      // -- @spWriteEventFileNoMsg
+      //   pass as @UpdateEventFileNoMsg(dsUEF: evt: pgmDS);
+      // ------------------------------------------
+         dcl-pr @spWriteEventFileNoMsg;
+           spUEF    likeds(dsUEF);
+           spEvt    likeds(Evt);
+           spPgmDS  likeds(pgmDS);
+         end-pr;
+
+     *====================================================================

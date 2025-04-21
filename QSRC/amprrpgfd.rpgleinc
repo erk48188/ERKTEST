@@ -1,0 +1,52 @@
+      *%METADATA                                                       *
+      * %TEXT RPG Common: File Data Structures                         *
+      *%EMETADATA                                                      *
+     /if defined(_AMPRRPGFD)
+     /Eof
+     /Endif
+     /define  _AMPRRPGFD
+     *====================================================================
+      *
+      *   Description: Copy book for File Data Structure Defines
+      *
+     *====================================================================
+      *       L O G   O F   P R O G R A M   M O D I F I C A T I O N S
+     *====================================================================
+      *   Date      Programmer       Description of Modifications & Reasons
+      * --------    ----------       --------------------------------------
+     *====================================================================
+     *====================================================================
+      *             F I L E     S P E C I F I C A T I O N S
+     *====================================================================
+
+     *====================================================================
+      *          T A B L E S   A N D  A R R A Y S
+     *====================================================================
+
+
+      // * Evt File Fields
+       dcl-ds r020 extname('AMPR020P') inz qualified end-ds;
+       dcl-s r020Null int(5) dim(12);
+       dcl-ds  evt likeds(r020) inz;
+       dcl-ds dsUEF;
+         iIndex zoned(4:0) inz;
+         iBase zoned(4:0) inz;
+         uef_Initialized char(1) inz('N');
+       end-ds;
+
+       dcl-ds t002 extname('AMPR002P') qualified end-ds;
+       dcl-s t002Null int(5) dim(369);
+
+       // * Data Structure used for Return File 121p
+       dcl-ds dsRtnF qualified;
+         nrcKey char(36);                        // * Physical Field 1
+           acct#    char(10) overlay(nrckey:1);  // *   Overlay of PF1
+           ltrcd    char(12) overlay(nrckey:21); // *   Overlay of PF1
+       end-ds;
+
+       dcl-ds @TierCount dim(25) qualified;
+         Count zoned(11:0) dim(25);
+       end-ds;
+
+
+

@@ -1,3 +1,10 @@
 {
-  "description": "ERKTEST Project for testing git and stuff"
+  "description": "ERKTEST Project for testing git and stuff",
+  "buildCommand": "makei build",
+  "buildObjectCommand": "makei b -t {object}",
+  "compileCommand": "makei compile -f {filename}",
+  "preUsrlibl": [
+    "&curlib"
+  ],
+  "curlib": "&CURLIB"
 }

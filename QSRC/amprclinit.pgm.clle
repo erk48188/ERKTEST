@@ -1,0 +1,91 @@
+      /*%METADATA                                                     */
+      /* %TEXT CL Common: Initialize Variables Copy Book              */
+      /*%EMETADATA                                                    */
+  /*================================================================*/
+  /*     Copyright -- © 2015 Renkim Corporation                     */
+  /*================================================================*/
+  /*                                                                */
+  /*     Description: Common Variables - Initialize                 */
+  /*                                                                */
+  /*================================================================*/
+  /*  Program Modification History Log :                            */
+  /*  Date       Programmer      Purpose                            */
+  /* ---------   ------------    ---------------------------------- */
+  /*================================================================*/
+
+
+             RTVJOBA    JOB(&PGM) USER(&US) SBMMSGQ(&WS) /* */
+
+ /*---------------------------------------------------------------*/
+ /*  Old-school file naming                                       */
+ /*---------------------------------------------------------------*/
+             CHGVAR     VAR(&PRJNM1) VALUE(&PROJ || 'NM1') /* */
+             CHGVAR     VAR(&PRJD1 ) VALUE(&PROJ || 'D1') /* */
+             CHGVAR     VAR(&PRJSMPL) VALUE(&PROJ || 'SMPL') /* */
+
+             CHGVAR     VAR(&CLTFIL) VALUE(&PROJ || '000P') /* */
+             CHGVAR     VAR(&TMPFIL) VALUE(&PROJ || '001P') /* */
+             CHGVAR     VAR(&HDRFIL) VALUE(&PROJ || '002P') /* */
+             CHGVAR     VAR(&DTLFIL) VALUE(&PROJ || '005P') /* */
+             CHGVAR     VAR(&HLHFIL) VALUE(&PROJ || '052P') /* */
+
+             CHGVAR     VAR(&SPOFIL) VALUE(&PROJ || '049P') /* */
+             CHGVAR     VAR(&AECSFL) VALUE(&PROJ || '421P') /* */
+
+             CHGVAR     VAR(&EVTFIL) VALUE(&PROJ || '020P') /* */
+             CHGVAR     VAR(&SUSFIL) VALUE(&PROJ || '027P') /* */
+             CHGVAR     VAR(&RTNFIL) VALUE(&PROJ || '121P') /* */
+
+             CHGVAR     VAR(&DDAHFL) VALUE(&PROJ || '101P') /* */
+             CHGVAR     VAR(&DDADFL) VALUE(&PROJ || '102P') /* */
+             CHGVAR     VAR(&DDAAFP) VALUE(&PROJ || '104P') /* */
+             CHGVAR     VAR(&STSFIL) VALUE(&PROJ || '108P') /* */
+
+             CHGVAR     VAR(&HYHFIL) VALUE(&PROJ || 'Y02P') /* */
+             CHGVAR     VAR(&HXHFIL) VALUE(&PROJ || 'X02P') /* */
+             CHGVAR     VAR(&HXDFIL) VALUE(&PROJ || 'X05P') /* */
+
+             CHGVAR     VAR(&CLTHFL) VALUE(&PROJ || '900P') /* */
+             CHGVAR     VAR(&CLTRFL) VALUE(&PROJ || '999P') /* */
+
+             CHGVAR     VAR(&LOGFIL) VALUE(&PROJ || 'JLOG') /* */
+
+ /*---------------------------------------------------------------*/
+ /*  In the process of changing File Name Variables to match Nm   */
+ /*---------------------------------------------------------------*/
+             CHGVAR     VAR(&F000) VALUE(&PROJ || '000P') /* */
+             CHGVAR     VAR(&F001) VALUE(&PROJ || '001P') /* */
+             CHGVAR     VAR(&F002) VALUE(&PROJ || '002P') /* */
+             CHGVAR     VAR(&F004) VALUE(&PROJ || '004P') /* */
+             CHGVAR     VAR(&F005) VALUE(&PROJ || '005P') /* */
+
+             CHGVAR     VAR(&F020) VALUE(&PROJ || '020P') /* */
+             CHGVAR     VAR(&F023) VALUE(&PROJ || '023P') /* */
+             CHGVAR     VAR(&F027) VALUE(&PROJ || '027P') /* */
+             CHGVAR     VAR(&F121) VALUE(&PROJ || '121P') /* */
+
+             CHGVAR     VAR(&F101) VALUE(&PROJ || '101P') /* */
+             CHGVAR     VAR(&F102) VALUE(&PROJ || '102P') /* */
+
+             CHGVAR     VAR(&FY02) VALUE(&PROJ || 'Y02P') /* */
+             CHGVAR     VAR(&FX02) VALUE(&PROJ || 'X02P') /* */
+             CHGVAR     VAR(&FX05) VALUE(&PROJ || 'X05P') /* */
+
+             CHGVAR     VAR(&FORTYP) VALUE('D')
+             CHGVAR     VAR(&SRCTYP) VALUE('1')
+
+             CHGVAR     VAR(&IDSTSda) VALUE(&PROJ || 'IDSTS')
+
+             ADDLIBLE   LIB(&PROJ) /* */
+             MONMSG     MSGID(CPF2103) /* */
+
+             RTVDTAARA  DTAARA(&PROJ/&PRJNM1 *ALL) RTNVAR(&CYCLE#) +
+                          /* */
+
+             RTVSYSVAL  SYSVAL(QDATE) RTNVAR(&MDY) /* */
+
+             CHGJOB     LOGCLPGM(*YES) /* */
+
+             RTVDTAARA  DTAARA(AMPRTESTMD *ALL) RTNVAR(&TESTMODE)
+             MONMSG     MSGID(CPF0000)
+

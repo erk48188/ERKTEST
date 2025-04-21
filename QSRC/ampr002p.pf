@@ -1,0 +1,465 @@
+      *%METADATA                                                       *
+      * %TEXT Renkim Standard Layout                                   *
+      *%EMETADATA                                                      *
+      *=============================================================
+      *  Copyright © 2016, Renkim Corporation
+      *=============================================================
+      *
+      *      File name:  RKMC000P
+      *    Description:  Client input file
+      *
+      *   Date created:  2016/05/13
+      *     Created by:  ERK
+      *
+      *=============================================================
+      *   Date      Programmer     Description of Modifications & Reasons
+      * --------    ----------     --------------------------------------
+      *
+      *=============================================================
+     A*
+     A          R RKMC002R
+     A
+      * COMMON MAILING ADDRESS AREA...
+     A            RKNAME1       50A         COLHDG('COMMON NAME 1')
+     A            RKNAME2       50A         COLHDG('COMMON NAME 2')
+     A            RKADDR1       40A         COLHDG('COMMON ADDR 1')
+     A            RKADDR2       40A         COLHDG('COMMON ADDR 2')
+     A            RKCITY        30A         COLHDG('COMMON CITY 2')
+     A            RKSTATE        2A         COLHDG('COMMON STATE')
+     A            RKZIP         10A         COLHDG('COMMON ZIP')
+      *
+      * CODE 1
+     A            SC1ZIP         5A         COLHDG('CODE 1 ZIP')
+     A            SC1ZP4         4A         COLHDG('CODE 1 ZIP+4')
+     A            SC1AD1        40A         COLHDG('CODE 1 ADR #1')
+     A            SC1AD2        40A         COLHDG('CODE 1 ADR #2')
+     A            SCCITY        30A         COLHDG('CODE 1 CITY')
+     A            SCSTE          2A         COLHDG('CODE 1 STATE')
+     A            SCR            4A         COLHDG('Carrier Route')
+     A            SFDPBC         2A         COLHDG('Delivery Point')
+     A            SFCHDT         1A         COLHDG('Check Digit')
+      *
+      * MAILSTREAM
+     A            SENTP          2A         COLHDG('ENTRY POINT')
+     A            SBTSB          2A         COLHDG('BATCH SUBSCRIPT')
+      * SPLNO = RECORD SEQ# WITHIN PRT RUN
+     A            SPLNO          9A         COLHDG('PALLET NUMBER')
+     A            SBTNO          9A         COLHDG('BAG/TRAY NUMBER')
+     A            SPCNO          9A         COLHDG('PACKAGE NUMBER')
+      * SSEQ# = PAGE SEQ# (NOT RECORD)
+     A            SSEQ#          9A         COLHDG('RECORD SEQ NBR')
+     A            SELIN         30A         COLHDG('ENDORSEMENT LINE')
+     A            SBARI          1A         COLHDG('BARCODE IND')
+     A            SPRCI          1A         COLHDG('PRICE TIRE IND')
+     A            SLOTCD         5A         COLHDG('LOT CODE')
+     A            SALTSC         2A         COLHDG('ALTERNATE SEQ CODE ')
+     A            SHEXSC         1A         COLHDG('HEX SEQ CODE')
+      *
+      * NCOA LINK INFO
+     A            SMEFFD         6A         COLHDG('Move Eff Date')
+     A            SMTYPE         1A         COLHDG('Move Type')
+     A            SSMFLG         1A         COLHDG('Special Move Flag' )
+      *
+      * RKC CONTROL
+     A            RKCLTCD        6A         COLHDG('RENKIM CLIENT CODE')
+     A            RKPRJCD        6A         COLHDG('RENKIM PROJECT CODE')
+     A            RKCID         12A         COLHDG('RENKIM RAPID-ID')
+     A            RKCCYC#       10A         COLHDG('CYCLE# SUB#')
+     A            RKCMDTE       10A         COLHDG('MAIL DATE')
+     A            RKTYPE         1A         COLHDG('Y=FIRST NOTICE')
+     A            RKDPLX         1A         COLHDG('DUPLX SMPLX')
+     A            RKPAGE         4S 0       COLHDG('PAGE PER LTR')
+     A            RKSTLDAT       1A         COLHDG('STLMNT DATE CALC')
+     A            RKSTLMNT       3S 2       COLHDG('STLMNT CALC')
+     A            RKHHLD         1A         COLHDG('RENKIM HOUSEHOLD')
+     A            RKHKEY         9A         COLHDG('HSHLD MATCH KEY')
+     A            RKPIECE        4S 0       COLHDG('HSHLD PIECE CT')
+     A            RKDETAIL       1A         COLHDG('Y=GET DETAIL')
+     A            RKINSERT1      1A         COLHDG('INSERT #1')
+     A            RKINSERT2      1A         COLHDG('INSERT #2')
+     A            RKINSERT3      1A         COLHDG('INSERT #3')
+     A            RKINSERT4      1A         COLHDG('INSERT #4')
+      *
+      *  Destination and Origin planet codes.
+     A            RKPLTDST      14A         COLHDG('PLANET DESTINATION')
+     A            RKPLTORG      14A         COLHDG('PLANET ORIGIN')
+      *
+      * USE FILLER FOR ANY EXTRA VARIABLES THAT ARE LETTER SPECIFIC
+      * AND FOR WHICH YOU DONT WISH TO REDO THE WHOLE SYSTEM.
+     A            RKFILL1       43A         COLHDG('RENKIM FILLER 1')
+     A            RKREASON      14A         TEXT('RENKIM REJECTION')
+      *
+      * SECTION 1 -- RECORD KEY
+     A            RECSYSID       3A         COLHDG('SYSTEM ID')
+     A            RECLOCD        3A         COLHDG('LOCATION CODE')
+     A            RECVRTSE       3A         COLHDG('VERTICAL SEGMENT')
+     A            RECCLTCD      10A         COLHDG('CLIENT CODE')
+     A            RECPRJCD      10A         COLHDG('PROJ. CD/CONTRACT ID')
+     A            RECLTRCD      12A         COLHDG('LETTER CODE')
+     A            RECLTRDT       8A         COLHDG('LETTER DATE')
+     A            RECACCT#      20A         COLHDG('ACCOUNT NUMBER')
+     A            RECPKG#       20A         COLHDG('PACKAGE NUMBER')
+      *
+      * SECTION 2 -- DEBTOR INFORMATION (NAME/ADDRESS)
+     A            DBTNAME       50A         COLHDG('DEB. NAME')
+     A            DBTADDNM1     50A         COLHDG('DEB.NAME 1')
+     A            DBTADDNM2     50A         COLHDG('DEB.NAME 2')
+     A            DBTADR1       35A         COLHDG('DEB. ADDRESS 1')
+     A            DBTADR2       35A         COLHDG('DEB. ADDRESS 2')
+     A            DBTCITY       25A         COLHDG('DEB. CITY')
+     A            DBTSTATE       2A         COLHDG('DEB. STATE')
+     A            DBTZIP5        5A         COLHDG('DEB. ZIP5')
+     A            DBTZIPBLK      1A         COLHDG('DEB.ZIP BLANK')
+     A            DBTZIP4        4A         COLHDG('DEB. ZIP4')
+      *
+      * SECTION 3 -- DEBTOR INFORMATION (OTHER THAN ADDRESS)
+     A            DBTBLC         9S 2       COLHDG('DEB. BALNCE DUE')
+     A            DBTDUEDATE     8A         COLHDG('DEB. DUE DATE')
+     A            DBTASAMT       9S 2       COLHDG('DEB. ASSIGNED AMT' )
+     A            DBT#ASPAY      2S         COLHDG('DEB. # OF ASGNED PAY')
+     A            DBTASDATE      8A         COLHDG('DEB. ASSIGNED DATE')
+     A            DBTSETAMT      9S 2       COLHDG('DEB. SETTLEMENT AMT')
+     A            DBTSETPERC     2S 0       COLHDG('DEB. SETTLEMENT %')
+     A            DBTSETDUED     8A         COLHDG('DEB. SETTLE.DUE DATE')
+     A            DBTARAMT       9S 2       COLHDG('DEB. ARRANGE AMT')
+     A            DBTARDATE      8A         COLHDG('DEB. ARRANGE DATE')
+     A            DBTLPAYAMT     9S 2       COLHDG('DEB. LAST PAY AMT')
+     A            DBTLPAYDAT     8A         COLHDG('DEB. LAST PAY DATE')
+     A            DBTLCHAAMT     9S 2       COLHDG('DEB. LAST CHARGE AMT')
+     A            DBTLCHADAT     8A         COLHDG('DEB. LAST CHARG DATE')
+     A            DBTDELAMT      9S 2       COLHDG('DEB. DELINQUENT AMT')
+     A            DBTDELDATE     8A         COLHDG('DEB. DELINQUENT DATE')
+     A            DBTRECAMT      9S 2       COLHDG('DEB. RECIEVED AMT')
+     A            DBTRECDATE     8A         COLHDG('DEB. RECIEVED DATE')
+     A            DBTPRINCIP     9S 2       COLHDG('DEB. PRINCIPAL')
+     A            DBTINTERST     7S 2       COLHDG('DEB. INTEREST')
+     A            DBTADDFEE1     9S 2       COLHDG('DEB.ADDITION.FEE1')
+     A            DBTADDFEE2     9S 2       COLHDG('DEB.ADDITION.FEE2')
+     A            DBTTOTBLC2     9S 2       COLHDG('DEB.TOTAL BALANCE')
+      *
+      * SECTION 4 -- CLIENT INFORMATION
+     A            CLTREF#       30A         COLHDG('CLIENT REF. #')
+     A            CLTNAME       50A         COLHDG('CLIENT NAME')
+     A            CLTADDR1      35A         COLHDG('CLIENT ADDRESS1')
+     A            CLTADDR2      35A         COLHDG('CLIENT ADDRESS2')
+     A            CLTCITY       25A         COLHDG('CLIENT CITY')
+     A            CLTSTATE       2A         COLHDG('CLIENT STATE')
+     A            CLTZIP        10A         COLHDG('CLIENT ZIP')
+     A            CLTCTNAME     35A         COLHDG('CLIENT CONTACT NAME')
+     A            CLTPHONE#     20A         COLHDG('CLIENT PHONE #')
+     A            CLTDBANAM     50A         COLHDG('CLIENT DBA ORI NAME')
+      *
+      * SECTION 5 -- COLLECTOR INFORMATION
+     A            COLCODE       10A         COLHDG('COLLECTOR CODE')
+     A            COLNAME       50A         COLHDG('COLLECTOR NAME')
+     A            COLTOLLPH#    20A         COLHDG('COLLECTOR TOLL PHONE')
+     A            COLLOCPH#     20A         COLHDG('COLLECTOR LOC PHONE')
+     A            COLFAX#       20A         COLHDG('COLLECTOR FAX #')
+      *
+      * SECTION 6 -- REMIT INFORMATION
+     A            RMTNAME       50A         COLHDG('REMIT NAME')
+     A            RMTADDR1      35A         COLHDG('REMIT ADDRES1/PO BOX')
+     A            RMTADDR2      35A         COLHDG('REMIT ADDRES2')
+     A            RMTCITY       25A         COLHDG('REMIT CITY')
+     A            RMTSTATE       2A         COLHDG('REMIT STATE')
+     A            RMTZIP        10A         COLHDG('REMIT ZIP')
+      *
+      * SECTION 7 -- RETURN INFORMATION
+     A            RTNNAME       50A         COLHDG('RETRN NAME')
+     A            RTNADDR1      35A         COLHDG('RETRN ADDRES1/PO BOX')
+     A            RTNADDR2      35A         COLHDG('RETRN ADDRES2')
+     A            RTNCITY       25A         COLHDG('RETRN CITY')
+     A            RTNSTATE       2A         COLHDG('RETRN STATE')
+     A            RTNZIP        10A         COLHDG('RETRN ZIP')
+      *
+      * SECTION 8 -- LOGO OFFICE INFORMATION
+     A            LOGNAME       50A         COLHDG('LOGO OFFICE NAME')
+     A            LOGADDR1      35A         COLHDG('LOGO ADDRES1/PO BOX')
+     A            LOGADDR2      35A         COLHDG('LOGO ADDRES2')
+     A            LOGCITY       25A         COLHDG('LOGO CITY')
+     A            LOGSTATE       2A         COLHDG('LOGO STATE')
+     A            LOGZIP        10A         COLHDG('LOGO ZIP')
+     A            LOGPH#1       16A         COLHDG('LOGO PHONE# 1')
+     A            LOGPH#2       16A         COLHDG('LOGO PHONE# 2')
+     A            LOGPH#3       16A         COLHDG('LOGO PHONE# 3')
+     A            LOGOFCHR1     40A         COLHDG('LOGO OFFICE HRS-1')
+     A            LOGOFCHR2     40A         COLHDG('LOGO OFFICE HRS-2')
+      *
+      * SECTION 9 -- BANKING INFORMATION
+     A            BNKABAM#       9A         COLHDG('BANK ABA MEMBER#')
+     A            BNKABAACT#    20A         COLHDG('BANK ABA ACT MEMBER#')
+     A            BNKOCRLN      80A         COLHDG('SCANLINE-OCR')
+      *
+      * SECTION 10 -- SPEED PAY INFORMATION
+     A            WEBLNKURL     40A         COLHDG('WEB PAY LINK URL')
+     A            WEBENTID      30A         COLHDG('WEB PAY ENTITY ID')
+     A            WEBPASSW      30A         COLHDG('WEB PAY PASSWORD')
+      *
+      * SECTION 11 -- CHECKING INFORMATION
+     A            CHK#          10A         COLHDG('CHECK NUMBER')
+     A            CHKDATE        8A         COLHDG('CHECK DATE')
+     A            CHKAMT         9S 2       COLHDG('CHECK AMT')
+     A            CHKSVCHG       5S 2       COLHDG('CHECK SERVICE CHARGE')
+     A            CHKRTNRS      10A         COLHDG('CHECK RETURN REASON')
+     A            CHKPC#        10A         COLHDG('CHK PSTD CRRCTD #')
+     A            CHKPCDATE      8A         COLHDG('CHK PSTD CRRCTD DAT')
+     A            CHKPCAMT       9S 2       COLHDG('CHK PSTD CRRCTD AMT')
+      *
+      * SECTION 12 -- CREDIT CARD  INFORMATION
+     A            CRTCARDTP     10A         COLHDG('CREDIT CARD TYPE')
+     A            CRTCARD#      25A         COLHDG('CREDIT CARD #')
+     A            CRTCARDCG      9S 2       COLHDG('CREDIT CARD CHG AMT')
+     A            CRTCARDFEE     5S 2       COLHDG('CREDIT CARD FEE')
+     A            CRTCARDDAT     8A         COLHDG('CREDIT CARD TRN DAT')
+      *
+      * SECTION 13 -- GUARANTOR/EMPLOYER INFORMATION
+     A            GRNTEMPRN1    50A         COLHDG('PYR/GRNTR/EMPLYR NM1')
+     A            GRNTEMPRN2    50A         COLHDG('PYR/GRNTR/EMPLYR NM2')
+     A            GRNTEMPRA1    35A         COLHDG('PYR/GRNTR/EMPLYR AD1')
+     A            GRNTEMPRA2    35A         COLHDG('PYR/GRNTR/EMPLYR AD2')
+     A            GRNTEMPRCT    25A         COLHDG('PYR/GRNTR/EMPLYR CTY')
+     A            GRNTEMPRST     2A         COLHDG('PYR/GRNTR/EMPLYR STE')
+     A            GRNTEMPRZP    10A         COLHDG('PYR/GRNTR/EMPLYR ZIP')
+
+      * SECTION 14 -- HOSPITAL INFORMATION
+     A            HOSNAME       50A         COLHDG('HOSPITAL/FACILITY NM')
+     A            HOSFCLASS     10A         COLHDG('FINANCIAL CLASS')
+     A            HOSDCTNAM     50A         COLHDG('DOCTOR NAME')
+     A            HOSSBSCODE    10A         COLHDG('PHYSICAIN SUBSC.CODE')
+     A            HOSDOCPH#     20A         COLHDG('DOCTOR PH#')
+
+      * SECTION 15 -- PATIENT INFORMATION
+     A            PACNAME       50A         COLHDG('PATIENT NAME')
+     A            PACADR1       35A         COLHDG('PATIENT ADR1')
+     A            PACADR2       35A         COLHDG('PATIENT ADR2')
+     A            PACCITY       25A         COLHDG('PATIENT CITY')
+     A            PACSTE         2A         COLHDG('PATIENT STATE')
+     A            PACZIP        10A         COLHDG('PATIENT ZIP')
+     A            PACACT#       20A         COLHDG('PATIENT ACT#')
+     A            PACAUDT#      20A         COLHDG('PATIENT AUDIT #')
+     A            PACCRTAUD#    20A         COLHDG('PAT. CRRECTD AUD.#')
+     A            PACBSRVDAT     8A         COLHDG('PAT.SRV.BEG.DATE')
+     A            PACESRVDAT     8A         COLHDG('PAT.SRV.END.DATE')
+     A            PACTYPE        3A         COLHDG('PAT.TYPE')
+     A            PACDIGCOD     10A         COLHDG('PAT.DIAGNOSIS.CD')
+     A            PACDIGDES     30A         COLHDG('PAT.DIAGNOSIS.DES')
+     A            PACRSNCOD      3A         COLHDG('PAT.REASON CODE')
+     A            PACRSNDESC    30A         COLHDG('PAT.REASON DESC')
+     A            PACOVRPAYD     8A         COLHDG('PAT.OVERPAY DATE')
+     A            PACOVRPAYI     8A         COLHDG('PAT.OVRPAY DAT ISUD')
+
+      * SECTION 16 -- INSURANCE INFORMATION
+     A            INSCOMPNAM    50A         COLHDG('INSURANCE COMP.NAME')
+     A            INSAGCNAME    50A         COLHDG('INSURANCE AGENC.NAME')
+     A            INSAGC#       20A         COLHDG('INSURANCE AGENC#')
+     A            INSPOLCYER     4A         COLHDG('INS. POLICE YEAR')
+     A            INSGRP#       30A         COLHDG('INS. GRP/POLICE#')
+     A            INSPOLLCD     10A         COLHDG('INS. POOL CODE')
+     A            INSSBSNAME    50A         COLHDG('INS.SUBSCRIBER NAME')
+     A            INSCASWRKR    50A         COLHDG('INS.CASE WORKER')
+     A            INSEFTVDAT     8A         COLHDG('INS.EFFECTIVE DATE')
+     A            INSEPIRDAT     8A         COLHDG('INS.EXPIRATE DATE')
+
+      * SECTION 17 -- GOVERMENT AFFAIR
+     A            GOVTAXID      20A         COLHDG('TAX ID')
+     A            GOVSSN        20A         COLHDG('SSN')
+     A            GOVIRSFLD1    20A         COLHDG('IRS FIELD 1')
+     A            GOVIRSFLD2    20A         COLHDG('IRS FIELD 2')
+     A            GOVIRSFLD3    20A         COLHDG('IRS FIELD 3')
+      *
+      * SECTION 18 -- EVENT INFORMATION
+     A            EVTDATE        8A         COLHDG('EVENT DATE')
+     A            EVTDESC       40A         COLHDG('EVENT DESCRIPTION')
+     A            EVTLOCTN      50A         COLHDG('EVENT LOCATION')
+     A            EVTADDR1      35A         COLHDG('EVENT ADDRESS1')
+     A            EVTADDR2      35A         COLHDG('EVENT ADDRESS2')
+     A            EVTCITY       25A         COLHDG('EVENT CITY')
+     A            EVTSTATE       2A         COLHDG('EVENT STATE')
+     A            EVTZIP5        5A         COLHDG('EVENT ZIP5')
+     A            EVTBLNK        1A         COLHDG('EVENT BLANK')
+     A            EVTZIP4        4A         COLHDG('EVENT ZIP4')
+     A            EVTCLM#       20A         COLHDG('EVENT CLAINM #')
+     A            EVTINV#       20A         COLHDG('EVENT INVOICE#')
+      *
+      * SECTION 19 -- COURT CASE INORMATION
+     A            CRTCSE#       30A         COLHDG('CASE NUMBER')
+     A            CRTCSETTL     30A         COLHDG('CASE TITLE')
+     A            CRTCSEFDT      8A         COLHDG('CASE DATE FILED')
+     A            CRTCSEADT      8A         COLHDG('CASE ARBITRATION')
+     A            CRTDATE        8A         COLHDG('COURT DATE')
+     A            CRTCSESTS     10A         COLHDG('CASE STATUS')
+     A            CRTDEF        35A         COLHDG('DEFENDANT')
+     A            CRTPLN        35A         COLHDG('PLAINTIFF')
+     A            CRTNAME       50A         COLHDG('COURT NAME')
+     A            CRTADDR1      35A         COLHDG('COURT ADDRESS1')
+     A            CRTADDR2      35A         COLHDG('COURT ADDRESS2')
+     A            CRTCITY       25A         COLHDG('COURT CITY')
+     A            CRTSTATE       2A         COLHDG('COURT STATE')
+     A            CRTZIP5        5A         COLHDG('COURT ZIP5')
+     A            CRTZIPB        1A         COLHDG('COURT ZIP BLANK')
+     A            CRTZIP4        4A         COLHDG('COURT ZIP4')
+     A            CRTCNTY       50A         COLHDG('COURT COUNTY')
+     A            CRTPHN        20A         COLHDG('COURT PHONE')
+     A            CRTFAX        20A         COLHDG('COURT FAX')
+     A            CRTCLKSAL     40A         COLHDG('CLERK SALUTATION')
+     A            CRTCLKFN      35A         COLHDG('CLERK FIRSTNAME')
+     A            CRTCLKMN      35A         COLHDG('CLERK MIDDLENAME')
+     A            CRTCLKLN      35A         COLHDG('CLERK LASTNAME')
+     A            CRTJDG        50A         COLHDG('COURT JUDGE')
+     A            CRTJMT        50A         COLHDG('JUDGEMENT')
+     A            CRTJMTDT       8A         COLHDG('JUDGEMENT DATE')
+     A            CRTJMTAMT      9S 2       COLHDG('JUDGEMENT AMOUNT')
+     A            CRTJMTCA       9S 2       COLHDG('J-MENT COST AWARD')
+     A            CRTJMTIA       9S 2       COLHDG('J-MENT INT. AWARD')
+     A            CRTJMTIR       3S 2       COLHDG('J-MENT INT.RATE')
+     A            CRTJMTOA       9S 2       COLHDG('J-MENT OTH AWARD')
+      *
+      * SECTION 20 -- PLAINTIFF ATTORNEY INFORMATION
+     A            PLNATTNM      50A         COLHDG('ATTORNEY NAME')
+     A            PLNATTCD      20A         COLHDG('ATTORNEY CODE')
+     A            PLNATTFRM     50A         COLHDG('ATTORNEY FIRM')
+     A            PLNATTAD1     35A         COLHDG('ATTORNEY ADDR1')
+     A            PLNATTAD2     35A         COLHDG('ATTORNEY ADDR2')
+     A            PLNATTCTY     25A         COLHDG('ATTORNEY CITY')
+     A            PLNATTST       2A         COLHDG('ATTORNEY STATE')
+     A            PLNATTZP5      5A         COLHDG('ATTORNEY ZIP5')
+     A            PLNATTZPB      1A         COLHDG('ATTORNEY ZIP BLNK')
+     A            PLNATTZP4      4A         COLHDG('ATTORNEY ZIP4')
+     A            PLNATTEM      30A         COLHDG('ATTORNEY EMAIL')
+     A            PLNATTPH      20A         COLHDG('ATTORNEY PHONE')
+     A            PLNATTFX      20A         COLHDG('ATTORNEY FAX')
+     A            PLNATTAV      40A         COLHDG('ATTORNEY ADVISORY')
+      *
+      * SECTION 21 -- DEFENSE ATTORNEY INFORMATION
+     A            DEFATTNM      50A         COLHDG('ATTORNEY NAME')
+     A            DEFATTCD      20A         COLHDG('ATTORNEY CODE')
+     A            DEFATTFRM     50A         COLHDG('ATTORNEY FIRM')
+     A            DEFATTAD1     35A         COLHDG('ATTORNEY ADDR1')
+     A            DEFATTAD2     35A         COLHDG('ATTORNEY ADDR2')
+     A            DEFATTCTY     25A         COLHDG('ATTORNEY CITY')
+     A            DEFATTST       2A         COLHDG('ATTORNEY STATE')
+     A            DEFATTZP5      5A         COLHDG('ATTORNEY ZIP5')
+     A            DEFATTZPB      1A         COLHDG('ATTORNEY ZIP BLNK')
+     A            DEFATTZP4      4A         COLHDG('ATTORNEY ZIP4')
+     A            DEFATTEM      30A         COLHDG('ATTORNEY EMAIL')
+     A            DEFATTPH      20A         COLHDG('ATTORNEY PHONE')
+     A            DEFATTFX      20A         COLHDG('ATTORNEY FAX')
+     A            DEFATTAV      40A         COLHDG('ATTORNEY ADVISORY')
+      *
+      * SECTION 22 -- RECIPIENT INFORMATION
+     A            RCPNAME       50A         COLHDG('RECIPIENT NAME')
+     A            RCPADDR1      35A         COLHDG('RECIPIENT ADDR1')
+     A            RCPADDR2      35A         COLHDG('RECIPIENT ADDR2')
+     A            RCPCITY       25A         COLHDG('RECIPIENT CITY')
+     A            RCPSTATE       2A         COLHDG('RECIPIENT STATE')
+     A            RCPZIP5        5A         COLHDG('RECIPIENT ZIP5')
+     A            RCPZIPB        1A         COLHDG('RECIPIENT ZIP BLK')
+     A            RCPZIP4        4A         COLHDG('RECIPIENT ZIP4')
+     A            RCPEMAIL      30A         COLHDG('RECIPIENT EMAIL')
+     A            RCPPHN        20A         COLHDG('RECIPIENT PHONE')
+     A            RCPFAX        20A         COLHDG('RECIPIENT FAX')
+     A            RCPDRVLC      25A         COLHDG('RECIPIENT LICENSE')
+      *
+      * SECTION 23 -- SENDER/REQUESTOR INFORMATION
+     A            SNDALIAS      50A         COLHDG('SENDER ALIAS')
+     A            SNDEMAIL      30A         COLHDG('SENDER EMAIL')
+     A            SNDPHONE      20A         COLHDG('SENDER PHONE')
+     A            SNDEXT        10A         COLHDG('SENDER EXT')
+     A            SNDUSRNM      30A         COLHDG('SENDER USER NAME')
+     A            REQALIAS      50A         COLHDG('REQUESTOR ALIAS')
+     A            REQEMAIL      30A         COLHDG('REQUESTOR EMAIL')
+     A            REQPHONE      20A         COLHDG('REQUESTOR PHONE')
+     A            REQEXT        10A         COLHDG('REQUESTOR EXT')
+     A            REQUSRNM      30A         COLHDG('REQUESTOR USR NM')
+
+      * SECTION 24 -- BANKRUPTCY & TRUSTEE INFORMATION
+     A            BRPCASE       30A         COLHDG('BNKRPT CASE #')
+     A            BRPCHPT       10A         COLHDG('BNKRPT CHAPTER')
+     A            BRPDTFL        8A         COLHDG('BNKRPT DT FILED')
+     A            BRPCRDST      50A         COLHDG('BNKRPT CRT DST')
+     A            BRPCRDIV      30A         COLHDG('BNKRPT CRT DIV')
+     A            TRSTNAME      50A         COLHDG('TRUSTEE NAME')
+     A            TRSTADDR1     35A         COLHDG('TRUSTEE ADDR1')
+     A            TRSTADDR2     35A         COLHDG('TRUSTEE ADDR2')
+     A            TRSTCITY      25A         COLHDG('TRUSTEE CITY')
+     A            TRSTSTATE      2A         COLHDG('TRUSTEE STATE')
+     A            TRSTZIP5       5A         COLHDG('TRUSTEE ZIP5')
+     A            TRSTZIPB       1A         COLHDG('TRUSTEE ZIP BLNK')
+     A            TRSTZIP4       4A         COLHDG('TRUSTEE ZIP4')
+     A            TRSTEMAIL     30A         COLHDG('TRUSTEE EMAIL')
+     A            TRSTPHONE     20A         COLHDG('TRUSTEE PHONE')
+     A            TRSTFAX       20A         COLHDG('TRUSTEE FAX')
+      *
+      * SECTION 25 -- COMPANY INFORMATION
+     A            CONAME        50A         COLHDG('CO. NAME')
+     A            COADDR1       35A         COLHDG('CO. ADDRESS1')
+     A            COADDR2       35A         COLHDG('CO. ADDRESS2')
+     A            COCITY        25A         COLHDG('CO. CITY')
+     A            COSTATE        2A         COLHDG('CO. STATE')
+     A            COZIP5         5A         COLHDG('CO. ZIP5')
+     A            COZIPB         1A         COLHDG('CO. ZIP BLK')
+     A            COZIP4         4A         COLHDG('CO. ZIP4')
+     A            COTOLPH       20A         COLHDG('CO. TOLLFREE PH.')
+     A            COLOCPH       20A         COLHDG('CO. LOCAL PH.')
+     A            COFAXPH       20A         COLHDG('CO. FAX PH.')
+
+      * SECTION 26 -- BRANCH INFORMATION
+     A            BRNAME        50A         COLHDG('BR. NAME')
+     A            BRADDR1       35A         COLHDG('BR. ADDRESS1')
+     A            BRADDR2       35A         COLHDG('BR. ADDRESS2')
+     A            BRCITY        25A         COLHDG('BR. CITY')
+     A            BRSTATE        2A         COLHDG('BR. STATE')
+     A            BRZIP5         5A         COLHDG('BR. ZIP5')
+     A            BRZIPB         1A         COLHDG('BR. ZIP BLK')
+     A            BRZIP4         4A         COLHDG('BR. ZIP4')
+     A            BRTOLPH       20A         COLHDG('BR. TOLLFREE PH.')
+     A            BRLOCPH       20A         COLHDG('BR. LOCAL PH.')
+     A            BRFAXPH       20A         COLHDG('BR. FAX PH.')
+
+      * SECTION 27 -- GARNISHMENT INFORMATION
+     A            GRNCASE       30A         COLHDG('GRN CASE NUMBER')
+     A            GRNCONAM      50A         COLHDG('GRN COMPANY')
+     A            GRNCNTCT      50A         COLHDG('GRN CONTACT')
+     A            GRNADDR1      35A         COLHDG('GRN ADDRESS1')
+     A            GRNADDR2      35A         COLHDG('GRN ADDRESS2')
+     A            GRNCITY       25A         COLHDG('GRN CITY')
+     A            GRNSTATE       2A         COLHDG('GRN STATE')
+     A            GRNZIP5        5A         COLHDG('GRN ZIP5')
+     A            GRNZIPB        1A         COLHDG('GRN ZIP BLANK')
+     A            GRNZIP4        4A         COLHDG('GRN ZIP4')
+     A            GRNTOLPH      20A         COLHDG('GRN TOLL FREE')
+     A            GRNLOCPH      20A         COLHDG('GRN LOCAL PHONE')
+     A            GRNFAXPH      20A         COLHDG('GRN FAX')
+     A            GRNDATFIL      8A         COLHDG('GRN DATE FILED')
+     A            GRNSRVDAT      8A         COLHDG('GRN SERVICE DATE')
+     A            GRNEXPDAT      8A         COLHDG('GRN EXPIRE DATE')
+      *
+      * SECTION 28 -- FLAGS/INDICATORS
+     A            INDCRTBUR      1A         COLHDG('CREDIT BUREAU FLAG')
+     A            INDTAXVBG      1A         COLHDG('TAX VERBIG FLAG')
+     A            INDMINIMD      1A         COLHDG('MINI MIRANDA')
+     A            IND30DAY       1A         COLHDG('30 DAY DISCLOSURE')
+     A            INDSTATEDS     1A         COLHDG('STATE DISCLOSURE')
+     A            INDADDDISC     1A         COLHDG('ADDITION DISCLOSUER')
+     A            INDCRDCARD    10A         COLHDG('CREDIT CARD FLAG')
+     A            INDLAWYLTR     1A         COLHDG('LAWYER LETTER IND')
+     A            INDLANGVG      1A         COLHDG('LANGUAGE INDICATOR')
+     A            INDFOREIGN     1A         COLHDG('FOREIGN COUNTRY')
+     A            INDLTRHEAD     1A         COLHDG('LETTER HEAD FLAG')
+     A            INDPAPRTYP     1A         COLHDG('PAPER TYPE')
+     A            INDENVETYP     1A         COLHDG('ENVELOPE TYPE')
+     A            INDTXTFORM    10A         COLHDG('TEXT/FORM TYPE')
+     A            INDLOGOCD      4A         COLHDG('LOGO CODE')
+      *
+      * SECTION 29 -- FILLERS
+     A            FILLFLD1      10A         COLHDG('FILLER FIELD 1')
+     A            FILLFLD2      10A         COLHDG('FILLER FIELD 2')
+     A            FILLFLD3      20A         COLHDG('FILLER FIELD 3')
+     A            FILLFLD4      20A         COLHDG('FILLER FIELD 4')
+     A            FILLFLD5      30A         COLHDG('FILLER FIELD 5')
+     A            FILLFLD6      10A         COLHDG('FILLER FIELD 6')
+     A            FILLFLD7      10A         COLHDG('FILLER FIELD 7')
+     A            FILLFLD8      20A         COLHDG('FILLER FIELD 8')
+     A            FILLFLD9      20A         COLHDG('FILLER FIELD 9')
+     A            FILLFLD10     30A         COLHDG('FILLER FIELD 10')
+     A

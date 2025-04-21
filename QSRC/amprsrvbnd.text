@@ -1,0 +1,7 @@
+STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('AMPR 1.0')
+  EXPORT SYMBOL(@spWriteEventFile)
+  EXPORT SYMBOL(@spGetTierCounts)
+  EXPORT SYMBOL(@spGetTierCountsAnyReason)
+  EXPORT SYMBOL(@spWriteAuditRecord)
+  EXPORT SYMBOL(@spWriteEventFileNoMsg)
+ENDPGMEXP

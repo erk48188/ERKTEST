@@ -1,0 +1,18 @@
+      /*%METADATA                                                     */
+      /* %TEXT Run First Option and Print                             */
+      /*%EMETADATA                                                    */
+             PGM
+
+             CALL       PGM(AMPR001CX)
+             CALL       PGM(AMPR010CX)
+
+             CLRPFM     FILE(AMPR101P)
+             CLRPFM     FILE(AMPR102P)
+
+             CPYF       FROMFILE(AMPR101Psv) TOFILE(AMPR101P) +
+                          FROMMBR(*ALL) MBROPT(*REPLACE)
+             CPYF       FROMFILE(AMPR102Psv) TOFILE(AMPR102P) +
+                          FROMMBR(*ALL) MBROPT(*REPLACE)
+             MONMSG     MSGID(CPF0000)
+
+             ENDPGM

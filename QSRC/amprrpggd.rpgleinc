@@ -1,0 +1,95 @@
+      *%METADATA                                                       *
+      * %TEXT RPG Common: General Declares                             *
+      *%EMETADATA                                                      *
+     /if defined(_AMPRRPGGD)
+     /Eof
+     /Endif
+     /define  _AMPRRPGGD
+     *====================================================================
+      *
+      *   Description: Copy book for File Data Structure Defines
+      *
+     *====================================================================
+      *       L O G   O F   P R O G R A M   M O D I F I C A T I O N S
+     *====================================================================
+      *   Date      Programmer       Description of Modifications & Reasons
+      * --------    ----------       --------------------------------------
+      * 06/18/18    erk 249778       Updated for Lariat
+     *====================================================================
+     *====================================================================
+      *             F I L E     S P E C I F I C A T I O N S
+     *====================================================================
+
+     *====================================================================
+      *          T A B L E S   A N D  A R R A Y S
+     *====================================================================
+
+       dcl-ds Client qualified;
+         project char(4) inz('AMPR');
+         CC char(2) inz('AM');
+       end-ds;
+
+       dcl-ds dsLCCnt qualified dim(150);
+         LtrCd char(12) inz;
+         LtrCnt zoned(7:0) inz;
+         badLtrCnt zoned(7:0) inz;
+       end-ds;
+
+     *====================================================================
+     *          C O N S T A N T S
+     *====================================================================
+       dcl-c cNumberOfTiers 4;
+
+       dcl-s arRecs like(recsRead) dim(4) inz(0);
+       dcl-s z9 zoned(9:0);
+       dcl-s iSplit like(ix);
+
+       //dcl-c Lt1 1;                  // * Latitude File Tier 1
+       //dcl-c Lt2 2;                  // * Latitude File Tier 2
+       //dcl-c Lr1 1;                  // * Lariat File Tier 1
+       //dcl-c Lr2 2;                  // * Lariat File Tier 2
+
+       dcl-ds *n;
+         Lt1 zoned(1:0) inz(1);
+         Lt2 zoned(1:0) inz(2);
+         Lr1 zoned(1:0) inz(3);
+         Lr2 zoned(1:0) inz(4);
+         aFlTr char(1) dim(4) pos(1);
+       end-ds;
+
+      // * Text for 020p eDesc Suffix
+      // * only using 1 & 2; if we switch to Lat 1& 2 and Lar 1 & 2
+      // * then replace sfltr1/2 with 5/6
+       dcl-ds *n;
+         sFlTr1 char(14) inz(' - Lat Tier 1');
+         sFlTr2 char(14) inz(' - Lat Tier 2');
+         sFlTr3 char(14) inz(' - Lariat T1 ');
+         sFlTr4 char(14) inz(' - Lariat T2 ');
+         sFlTr5 char(14) inz(' - Lat Tier 1');
+         sFlTr6 char(14) inz(' - Lat Tier 2');
+         sFlTr char(14) dim(4) pos(1);
+       end-ds;
+
+       //---------------------------------------------------------
+       //-- Alternate Tier Data Structure for 020p strings
+       //---------------------------------------------------------
+       dcl-ds @TierSplit;
+         @LTM   char(1) inz(' ');     // * First element is master
+         @LT1   char(1) inz('1');     // * the rest are Tier + 1
+         @LT2   char(1) inz('2');
+         @LT3   char(1) inz('3');
+         @LT4   char(1) inz('4');
+         @aFlTr char(1) dim(5) pos(1);
+       end-ds;
+
+       dcl-ds @TierDescption;
+         @sFlTrM char(14) inz(' ');
+         @sFlTr1 char(14) inz(' - Lat Tier 1');
+         @sFlTr2 char(14) inz(' - Lat Tier 2');
+         @sFlTr3 char(14) inz(' - Lariat T1 ');
+         @sFlTr4 char(14) inz(' - Lariat T2 ');
+         @sFlTr5 char(14) inz(' - Lat Tier 1');
+         @sFlTr6 char(14) inz(' - Lat Tier 2');
+         @sFlTr char(14) dim(5) pos(1);
+       end-ds;
+

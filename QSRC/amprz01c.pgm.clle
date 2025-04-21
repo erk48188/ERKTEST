@@ -1,0 +1,35 @@
+      /*%METADATA                                                     */
+      /* %TEXT Retrieve Test File                                     */
+      /*%EMETADATA                                                    */
+  /*================================================================*/
+  /*     Copyright -- © 2017 Renkim Corporation                     */
+  /*================================================================*/
+  /*                                                                */
+  /*     Description: Upload Test File                              */
+  /*                                                                */
+  /*================================================================*/
+  /*  Program Modification History Log :                            */
+  /*  Date       Programmer      Purpose                            */
+  /* ---------   ------------    ---------------------------------- */
+  /*================================================================*/
+
+             PGM        PARM(&PFN)
+
+             DCL        VAR(&pFN) TYPE(*CHAR) LEN(32)
+             DCL        VAR(&FN) TYPE(*CHAR) LEN(80)
+
+             CHGJOB     LOGCLPGM(*YES) /* */
+             CHGVAR     VAR(&FN) VALUE(%TRIM(&PFN))
+
+             CD         DIR('/client/from/ampr/test')
+
+             CPYFRMIMPF FROMSTMF(&FN) TOFILE(AMPR999P) +
+                          MBROPT(*REPLACE) RCDDLM(*ALL) +
+                          STRDLM(*NONE) STRESCCHR(*NONE) +
+                          RMVBLANK(*NONE) FLDDLM(*TAB) +
+                          RPLNULLVAL(*FLDDFT)
+
+             CPYFRMIMPF FROMFILE(AMPR999P) TOFILE(AMPR000P) +
+                          MBROPT(*REPLACE) RCDDLM(*ALL) +
+                          RPLNULLVAL(*FLDDFT)
+             ENDPGM

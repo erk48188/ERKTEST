@@ -1,0 +1,143 @@
+     *
+     *
+     *   AMPR Library - AMERICAN PROFIT RECOVERY
+     *
+     *   Initial Set Up On:  02/01/2018
+     *   Initial Set Up By:  ERK
+     *
+     *   Renkim Project ID:  903   (RPID/RPID010P)
+     *   System           :  PROPRIETARY
+     *   Check for dupes:
+     *   ========================================================
+     *
+     *
+     *
+     *  ** EVERYTHING BELOW THIS LINE IS FROM A LELA SYSTEM
+     *   Check for dupes:
+     *   Mailing to Puerto Rico, U.S. Territories and Foreign
+     *
+     *   No account# and reference# in Y02P - no encryption
+     *
+     *   The WEBCOLLEX logo is triggered by Mail state, If mailing to
+     *   NC, it will print. Otherwise, you get the large CKS Financial
+     *   logo.
+     *
+     *   09/25/17 STID changed: all 241, NV is 270. It was all 260
+     *
+     *   Some business rules in 60R - check Excel documentation
+     *
+     *   Copied from:
+     *   CBAS Library -
+     *===============================================================
+     *
+     *  NEW:  All File Record Format Names starts with the Same
+     *        Letter ("RKMC" - Renkim Collection) this way when
+     *        coping over to a New Library all that has to be done
+     *        is rename the Files and Change the Logic in the
+     *        Programs.
+     *
+     *  NEW:  New DataArea for the Parms to be passed to the
+     *        Generic Programs:
+      *          xxxxFORTYP - How to handle Foreign Records
+      *          xxxxSRCTYP - How to Populate Source Key in Return File
+      *          xxxx24HTYP - How to chain for 24 hr Checking
+      *
+     *
+     *===============================================================
+     *
+     *  NOTE: Older Production Versions are saved in LIBR/OLDSRC,
+     *        with "01", "02", etc. on to the end of the Name.
+     *
+     *===============================================================
+       - 02/26/25 - After several days of bad characters causing
+          problems with CASS 021p, I changed the JSON file from
+          CCSID 1252 to 1208 and CASS/BCC passed
+     *===============================================================
+        - 02/19/25 - EBLASTS ADDED
+          - Bounced emails do not get converted to print!
+
+     *===============================================================
+        - 12/10/24 - COND50 LETTERS
+          - If you reset the cycle, you should ensure that any Cond50
+            letters that were created this cycle are removed.
+          - should update AMPRRESET2 to remove letters from amprh02p
+            for the current cycle
+
+     *---------------------------------------------------------------
+     * Important Fields
+     *---------------------------------------------------------------
+        002P.TRSTZIPB NOW USED FOR BW/REMIT COLOR/FULL COLOR 7/30/19
+         BLANK = B&W
+         F     = FULL COLOR
+         R     = REMIT COLOR
+
+        101P.indLtCh    = As Of the date of this letter LONG
+          101p.indLtch = r002.defAttZpb  (101r)
+          r002.defattzpb = Y             (063r)
+            cleared if:
+              - 600, 647, 843, 845
+              - t1 (indLtrHead) and 100, 200, 300, 400, 900, 10100
+              - AR, ME, NV, NY
+              - fillfld5 in APR INTEREST FORBIDDEN, NEW, NEEDS REVIEW
+
+        101p.indAprFbdn = As of the date of this letter SHORT
+
+        002p.indLogoCd  - Image Type (Standard, SM, Full Color)
+        002p.indAddDisc - OOS Y/N
+        002p.indLangVg  - "Division" - 1=lat t1, 2=lat t2, 3=lar t1
+                                       4=lariat t2
+        002p.indLtrHead - Tier
+        002p.indEnveTyp - Link Driver Record Found / MLA (Multi Line)
+        002p.evtCity    - Link Number
+        002p.rcpzipb    - MLA Y/N (regardless of distinct Cred name)
+        002p.indLawyLtr - Grid # (MLA, chkAmt>1, Int)
+        002p.chkAmt     - number of 005p records (distinct cred name)
+        002P.indMiniMd  - Y if tier=1 and Insert10 is null
+     *===============================================================
+     * PDF MERGE LETTER
+     *---------------------------------------------------------------
+        SEPT 2019
+        00822 is a PDF-MERGE...we receive a zip file along with data file
+        letters are split into 3 jobs - p06=1-4 letters, p07 = 5-9 ltrs
+        p08 = 10+ letters
+
+        due to Inspire limitations
+        - letters are forced duplex; empty pg is not reported directly
+        - pdfs are forced to even number of images; extra blank page
+          is reported by letter by a PADDER flag in pre-processing #1
+          stat sheet
+        -
+
+       job runs:
+       - 111c is called from 048c
+         - 002p copied to 052p,  052p copied back to 002p for 822's only
+         - 101r creates 101p/102p
+         - Inspire is called to find Letters without PDFs - letter is dropped
+           from 052p and 101p
+         - inspire is called again to get Images per letter and split into jobs,
+           updating 052p  (rkpage updated with total imgs including blanks - always even)
+         - 052p is copied back to 002p
+       - 101c - immediately after 052p->002p, calls 113c
+         - creates 101p/102p
+         - calls inspire TWICE
+           - first to get TOTAL NUMBER OF ACTUAL FULL COLOR IMAGES
+             (Letter Records, not counting blanks) r002.govIRSFld1
+           - second to get TOTAL NUMBER OF B/W IMAGES (PDF Images, not
+             counting blanks                       r002.govIRSFld2
+
+
+     *===============================================================
+     * CHANGELOG
+     *---------------------------------------------------------------
+        10/08/18 - ERK - 280828 - Remove Lariat, Update Lat w/ Dtls
+         -
+
+        08/09/18 - ERK - 268188
+         - drop 10100 details with OOS=Y (insert40 <> 0000)
+         - drop 10100 w/ OOS = Y
+
+        06/13/18 - erk - 253490
+         - 001r - removed allowing duplicate 840 where ltrcd/acct#
+           are the same but Promise Date is different
+     *===============================================================
+     *

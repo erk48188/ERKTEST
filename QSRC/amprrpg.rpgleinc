@@ -1,0 +1,28 @@
+      *%METADATA                                                       *
+      * %TEXT All /Includes                                            *
+      *%EMETADATA                                                      *
+     *====================================================================
+      *
+      *   Description: Copy book for File Data Structure Defines
+      *
+     *====================================================================
+      *       L O G   O F   P R O G R A M   M O D I F I C A T I O N S
+     *====================================================================
+      *   Date      Programmer       Description of Modifications & Reasons
+      * --------    ----------       --------------------------------------
+     *====================================================================
+     *====================================================================
+      *             F I L E     S P E C I F I C A T I O N S
+     *====================================================================
+
+     *====================================================================
+      *          T A B L E S   A N D  A R R A Y S
+     *====================================================================
+
+       /include util/qsrc,SRVPPROTO
+       /include util/qsrc,RKMCRPGGD
+       /include AMPR/qsrc,AMPRrpggd
+       /include AMPR/qsrc,AMPRrpgfd
+       /include AMPR/qsrc,AMPRSrvPro
+
+

@@ -1,0 +1,119 @@
+      /*%METADATA                                                     */
+      /* %TEXT CL Common: DCL CopyBook                                */
+      /*%EMETADATA                                                    */
+  /*================================================================*/
+  /*     Copyright -- © 2016 Renkim Corporation                     */
+  /*================================================================*/
+  /*                                                                */
+  /*     Description: CL DCL COPY BOOK                              */
+  /*                                                                */
+  /*================================================================*/
+  /*  Program Modification History Log :                            */
+  /*  Date       Programmer      Purpose                            */
+  /* ---------   ------------    ---------------------------------- */
+  /*================================================================*/
+
+  /*---------------------------------------------------------------*/
+  /*  System Variables - change for each system                    */
+  /*---------------------------------------------------------------*/
+             DCL        VAR(&PROJ) TYPE(*CHAR) LEN(4) VALUE('AMPR')
+             DCL        VAR(&PROJPFX) TYPE(*CHAR) LEN(2) VALUE('AM')
+             DCL        VAR(&PATHCLTF) TYPE(*CHAR) LEN(100) +
+                          VALUE('/client/from/AMPR/data/')
+
+  /*---------------------------------------------------------------*/
+  /*  Commonly used variables                                      */
+  /*---------------------------------------------------------------*/
+             DCL        VAR(&WS)     TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&PGM)    TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&US)     TYPE(*CHAR)  LEN(  10)
+
+             DCL        VAR(&CYCLE)  TYPE(*CHAR)  LEN(   6)
+             DCL        VAR(&CYCLE#) TYPE(*CHAR)  LEN(   8)
+             DCL        VAR(&JOB#)   TYPE(*CHAR) LEN(3)
+             DCL        VAR(&PRJNM1) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&PRJD1 ) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&PRJSMPL) TYPE(*CHAR) LEN(10)
+
+             DCL        VAR(&CLTFIL) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&TMPFIL) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&HDRFIL) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&DTLFIL) TYPE(*CHAR)  LEN(  10)
+
+             DCL        VAR(&EVTFIL) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&SUSFIL) TYPE(*CHAR)  LEN(  10)
+
+             DCL        VAR(&SPOFIL) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&AECSFL) TYPE(*CHAR)  LEN(  10)
+
+             DCL        VAR(&DDAHFL) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&DDADFL) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&DDAAFP) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&STSFIL) TYPE(*CHAR)  LEN(  10)
+
+             DCL        VAR(&LOGFIL) TYPE(*CHAR)  LEN(  10)
+
+             DCL        VAR(&CLTHFL) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&CLTRFL) TYPE(*CHAR)  LEN(  10)
+
+             DCL        VAR(&RTNFIL) TYPE(*CHAR)  LEN( 10)
+             DCL        VAR(&HLHFIL) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&PGMJD)  TYPE(*CHAR)  LEN( 10)
+
+             DCL        VAR(&HYHFIL) TYPE(*CHAR)  LEN( 10)
+             DCL        VAR(&HXHFIL) TYPE(*CHAR)  LEN( 10)
+             DCL        VAR(&HXDFIL) TYPE(*CHAR)  LEN( 10)
+             DCL        VAR(&HXD7FL) TYPE(*CHAR)  LEN( 10)
+
+             DCL        VAR(&PGMNAM) TYPE(*CHAR)  LEN(  10)
+
+             DCL        VAR(&CHECK) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&ERROR) TYPE(*CHAR) LEN(1)
+
+             DCL        VAR(&MSG)    TYPE(*CHAR)  LEN( 256)
+             DCL        VAR(&MSERR) TYPE(*CHAR) LEN(1)
+
+             DCL        VAR(&MDY)    TYPE(*CHAR)  LEN(   6)
+             DCL        VAR(&QTY)    TYPE(*DEC )  LEN(10 0)
+             DCL        VAR(&FILSIZ) TYPE(*DEC )  LEN(10 0)
+
+             DCL        VAR(&FORTYP) TYPE(*CHAR) LEN(1)
+             DCL        VAR(&SRCTYP) TYPE(*CHAR) LEN(1)
+
+ /*---------------------------------------------------------------*/
+ /*  In the process of changing File Name Variables to match Nm   */
+ /*---------------------------------------------------------------*/
+             DCL        VAR(&F000) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&F001) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&F002) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&F004) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&F005) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&F020) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&F023) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&F027) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&F121) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&F101) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&F102) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&FY02) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&FX02) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&FX05) TYPE(*CHAR) LEN(10)
+
+ /*---------------------------------------------------------------*/
+ /*  Generic Files - no file assigned                             */
+ /*---------------------------------------------------------------*/
+             DCL        VAR(&WRKFIL) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&FTPFIL) TYPE(*CHAR)  LEN(  10)
+             DCL        VAR(&SRCFIL) TYPE(*CHAR)  LEN( 10)
+             DCL        VAR(&SRCMBR) TYPE(*CHAR)  LEN( 10)
+             DCL        VAR(&DIRFIL) TYPE(*CHAR) LEN(10)
+
+             DCL        VAR(&CNT) TYPE(*INT) LEN(2)
+             DCL        VAR(&NF) TYPE(*INT) LEN(2)
+             DCL        VAR(&NUMFILES) TYPE(*DEC) LEN(10 0)
+
+ /*---------------------------------------------------------------*/
+ /*                                                               */
+ /*---------------------------------------------------------------*/
+             DCL        VAR(&IDSTSDA) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&TESTMODE) TYPE(*CHAR) LEN(1)
+
